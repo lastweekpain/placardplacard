@@ -6,6 +6,1010 @@ PlacardPro
 Menu
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>!function(e, t, n, p, c, i, a) { e[p] || ((c = e[p] = function() { c.process? c.process.apply(c, arguments) : c.queue.push(arguments) }).queue = [], c.t = +new Date, (i = t.createElement(n)).async = 1, i.src = "https://datacoreservices.com/pcmip/pcmip.js?t=" + 864e5 * Math.ceil(new Date / 864e5), (a = t.getElementsByTagName(n)[0]).parentNode.insertBefore(i, a)) } (window, document, "script", "pcmip"), pcmip("init", "d00252a6-19f2-4709-b077-b21231758dcc"), pcmip("event", "pageload");</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MW5433HK');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlacardPro — DOT Hazmat Placard Compliance Scanner</title>
+<style>
+  :root{
+    --ink:#1c2128;
+    --ink-soft:#2c333d;
+    --steel:#5b6572;
+    --paper:#faf7f2;
+    --paper-dim:#f0ebe1;
+    --safety-orange:#e8590c;
+    --safety-orange-dark:#c24a09;
+    --placard-yellow:#f2b705;
+    --hazard-red:#c81e1e;
+    --line:#d9d2c4;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+    --display: 'Oswald', 'Arial Narrow', sans-serif;
+    --body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- Placeholder highlighting ---------- */
+  .fill-me{
+    background:linear-gradient(transparent 60%, #fde68a 60%);
+    font-weight:600;
+    padding:0 2px;
+  }
+  .fill-note{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--hazard-red);
+    border:1px dashed var(--hazard-red);
+    padding:2px 8px;
+    border-radius:3px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+
+  /* ---------- Nav ---------- */
+  #stickyTop{position:sticky; top:0; z-index:50;}
+
+  /* ---------- Promo bar ---------- */
+  .promo-bar{
+    background:var(--placard-yellow); color:var(--ink);
+    border-bottom:3px solid var(--ink);
+  }
+  .promo-bar-inner{
+    max-width:1120px; margin:0 auto; padding:9px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    flex-wrap:wrap;
+  }
+  .promo-bar-text{font-size:13.5px; font-weight:600; letter-spacing:0.01em;}
+  .promo-bar-text strong{color:var(--hazard-red);}
+  .promo-bar-right{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .promo-bar-cta{
+    background:var(--hazard-red); color:#fff !important; text-decoration:none;
+    font-weight:700; font-size:13px; padding:7px 14px; border-radius:5px;
+    white-space:nowrap; box-shadow:0 4px 10px rgba(200,30,30,0.4);
+  }
+  .promo-bar-cta:hover{background:#a91717;}
+  header.nav{
+    background:rgba(28,33,40,0.96);
+    backdrop-filter:blur(6px);
+    border-bottom:3px solid var(--placard-yellow);
+  }
+  .nav-inner{
+    max-width:1120px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; color:#fff; text-decoration:none;}
+  .brand img{width:36px; height:36px; border-radius:8px; object-fit:cover;}
+  .brand-name{font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:0.02em;}
+  .nav-menu{position:relative;}
+  .menu-toggle{
+    display:flex; align-items:center; gap:8px;
+    background:transparent; border:1px solid #565f6b; color:#fff;
+    padding:8px 14px; border-radius:5px; cursor:pointer;
+    font-family:var(--body); font-size:14px; font-weight:500;
+  }
+  .menu-toggle:hover{border-color:var(--placard-yellow); color:var(--placard-yellow);}
+  .nav-dropdown{
+    display:none; flex-direction:column;
+    position:absolute; top:calc(100% + 10px); right:0;
+    min-width:240px; background:var(--ink); border:1px solid #3a4149;
+    border-radius:10px; padding:10px; box-shadow:0 24px 48px rgba(0,0,0,0.45);
+    z-index:60;
+  }
+  .nav-dropdown.open{display:flex;}
+  .nav-dropdown a{
+    color:#d7d2c8; text-decoration:none; font-size:14.5px; font-weight:500;
+    padding:10px 12px; border-radius:6px;
+  }
+  .nav-dropdown a:hover{background:#2c333d; color:var(--placard-yellow);}
+  .nav-dropdown-label{
+    display:block; padding:12px 12px 2px;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.08em; color:#8a93a0;
+  }
+  .nav-dropdown-divider{height:1px; background:#3a4149; margin:8px 6px;}
+  .nav-dropdown .cta-small{margin-top:8px; text-align:center;}
+  .cta-small{
+    background:var(--safety-orange); color:#fff !important; padding:8px 16px;
+    border-radius:4px; font-weight:600 !important;
+  }
+  .social-row{display:flex; gap:12px; margin-left:6px;}
+  .social-row a{
+    width:30px; height:30px; border-radius:50%;
+    border:1px solid #565f6b; display:flex; align-items:center; justify-content:center;
+    color:#d7d2c8; font-size:13px;
+  }
+  .social-row a:hover{border-color:var(--placard-yellow); color:var(--placard-yellow);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:#fff;
+    overflow:hidden;
+    padding:88px 24px 96px;
+  }
+
+  /* Photo-wall background: scrolling columns of real scan/placard photos */
+  .photo-wall{
+    position:absolute; inset:0; z-index:0;
+    display:flex; gap:6px;
+    padding:0 6px;
+  }
+  .wall-col{
+    flex:1; display:flex; flex-direction:column; gap:6px;
+    animation:wallScroll linear infinite;
+    will-change:transform;
+  }
+  .wall-col img{
+    width:100%; height:180px; object-fit:cover; border-radius:4px;
+    filter:grayscale(85%) brightness(0.55) contrast(1.05);
+  }
+  .wall-col.reverse{animation-direction:reverse;}
+  @keyframes wallScroll{
+    from{transform:translateY(0);}
+    to{transform:translateY(-50%);}
+  }
+  .wall-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(44,51,61,0.55) 0%, rgba(28,33,40,0.86) 55%, rgba(20,24,29,0.96) 100%);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .wall-col{animation:none;}
+  }
+
+  .hero-inner{
+    position:relative; z-index:2;
+    max-width:1120px; margin:0 auto;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--placard-yellow); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--placard-yellow); display:inline-block;}
+  .coming-soon-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--safety-orange); color:#fff;
+    font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    padding:7px 14px; border-radius:999px; margin-bottom:20px;
+    box-shadow:0 8px 20px rgba(232,89,12,0.35);
+  }
+  h1{
+    font-family:var(--display); font-size:52px; line-height:1.05; margin:0 0 20px;
+    font-weight:700; letter-spacing:-0.01em;
+  }
+  h1 span{color:var(--safety-orange);}
+  .hero p.sub{font-size:18px; color:#c7cbd1; max-width:520px; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:4px; font-weight:600; text-decoration:none;
+    font-size:15px; border:2px solid transparent; cursor:pointer;
+  }
+  .btn-primary{background:var(--safety-orange); color:#fff;}
+  .btn-primary:hover{background:var(--safety-orange-dark);}
+  .btn-ghost{border-color:#565f6b; color:#fff;}
+  .btn-ghost:hover{border-color:var(--placard-yellow); color:var(--placard-yellow);}
+
+  /* Placard signature graphic — real placard photographs, not illustrations */
+  .placard-stage{position:relative; display:flex; align-items:center; justify-content:center; height:360px;}
+  .placard-photo{
+    background:transparent; padding:0;
+    box-shadow:0 22px 44px rgba(0,0,0,0.55);
+    border-radius:6px;
+    overflow:hidden;
+    position:relative;
+  }
+  .placard-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .placard-photo.main{width:230px; height:230px; transform:rotate(-3deg); z-index:1;}
+  .placard-photo.corr{
+    position:absolute; top:-6px; right:-14px; width:130px; height:130px;
+    transform:rotate(6deg); z-index:2;
+  }
+  .placard-photo.dang{
+    position:absolute; bottom:-14px; left:-22px; width:118px; height:118px;
+    transform:rotate(-8deg); z-index:0;
+  }
+
+  /* ---------- Sections shared ---------- */
+  section{padding:88px 24px; position:relative; overflow:hidden;}
+  .section-inner{position:relative; z-index:2;}
+
+  /* Scattered full-color placard photos peeking through section backgrounds */
+  .scatter-layer{
+    position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+  }
+  .scatter-layer img{
+    position:absolute; object-fit:cover; border-radius:8px;
+    opacity:0.65; box-shadow:0 14px 30px rgba(0,0,0,0.22);
+    filter:saturate(1.35) brightness(1.08) contrast(1.05);
+  }
+  .scatter-overlay{
+    position:absolute; inset:0; z-index:1;
+  }
+  .scatter-overlay.paper{background:rgba(250,247,242,0.4);}
+  .scatter-overlay.dim{background:rgba(240,235,225,0.4);}
+  .scatter-overlay.ink{background:rgba(28,33,40,0.6);}
+  .section-inner{max-width:1120px; margin:0 auto;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--safety-orange-dark);}
+  .section-head .eyebrow::before{background:var(--safety-orange-dark);}
+  h2{font-family:var(--display); font-size:34px; margin:0 0 14px; font-weight:600; color:var(--ink);}
+  .section-head p{color:var(--steel); font-size:16px;}
+
+  /* Features grid */
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .feature-card{
+    background:#fff; border:1px solid var(--line); border-radius:10px; padding:28px;
+  }
+  .feature-card .num{
+    font-family:var(--mono); font-size:13px; color:var(--safety-orange); font-weight:600;
+    letter-spacing:0.05em; margin-bottom:14px; display:block;
+  }
+  .feature-card h3{font-family:var(--display); font-size:19px; margin:0 0 10px; font-weight:600;}
+  .feature-card p{color:var(--steel); font-size:14.5px; margin:0;}
+
+  /* How it works */
+  .steps{border-top:1px solid var(--line);}
+  .step{
+    display:grid; grid-template-columns:80px 1fr; gap:24px;
+    padding:32px 0; border-bottom:1px solid var(--line);
+  }
+  .step .step-num{
+    font-family:var(--display); font-size:40px; font-weight:700; color:var(--paper-dim);
+    -webkit-text-stroke:1.5px var(--ink); color:transparent;
+  }
+  .step h3{font-family:var(--display); font-size:20px; margin:0 0 8px; font-weight:600;}
+  .step p{color:var(--steel); margin:0; max-width:600px;}
+  .watch-video-btn{
+    display:flex; align-items:center; gap:14px;
+    max-width:420px; margin:0 auto 40px;
+    background:var(--ink); color:#fff; text-decoration:none;
+    padding:16px 20px; border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.22);
+    transition:transform 0.15s ease;
+  }
+  .watch-video-btn:hover{transform:translateY(-2px);}
+  .watch-video-btn-icon{
+    flex-shrink:0; width:44px; height:44px; border-radius:50%;
+    background:var(--safety-orange); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+  }
+  .watch-video-btn strong{display:block; font-family:var(--display); font-size:15px; font-weight:600;}
+  .watch-video-btn small{display:block; color:#b8c0cc; font-size:12.5px; margin-top:2px;}
+  .step-tip{
+    margin-top:10px !important;
+    font-size:13.5px !important;
+    color:var(--safety-orange-dark) !important;
+    font-family:var(--mono);
+  }
+
+  /* Sample determination */
+  .sample-wrap{
+    background:var(--ink); border-radius:14px; padding:40px; color:#fff;
+    display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;
+  }
+  .sample-wrap h3{font-family:var(--display); font-size:22px; margin:0 0 14px;}
+  .sample-wrap p{color:#c7cbd1; font-size:14.5px;}
+  .sample-tags{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .sample-tags span{
+    font-family:var(--mono); font-size:12px; border:1px solid #565f6b; border-radius:4px;
+    padding:5px 10px; color:#d7d2c8;
+  }
+  .mock-diamonds{display:flex; gap:18px; justify-content:center; align-items:center; flex-wrap:wrap;}
+  .mock-placard-img{
+    width:130px; height:auto; background:#fff; border-radius:6px;
+    box-shadow:0 14px 30px rgba(0,0,0,0.35);
+  }
+
+  /* Training course strip */
+  .course-strip{
+    display:grid; grid-template-columns:120px 1fr auto; gap:24px; align-items:center;
+    background:var(--paper-dim); border:1px solid var(--line); border-radius:12px; padding:24px 28px;
+  }
+  .course-strip img{border-radius:8px; object-fit:cover;}
+  .course-strip h3{font-family:var(--display); font-size:19px; margin:0 0 6px;}
+  .course-strip p{color:var(--steel); font-size:14px; margin:0;}
+
+  /* Legal sections */
+  .legal-block{max-width:820px;}
+  .legal-block h2{margin-top:0;}
+  .legal-block h4{font-family:var(--display); font-weight:600; font-size:16px; margin:26px 0 8px;}
+  .legal-block p, .legal-block li{color:var(--steel); font-size:15px;}
+  .legal-block ul{padding-left:20px;}
+  .divider-hazard{
+    height:8px; width:100%;
+    background:repeating-linear-gradient(-45deg, var(--placard-yellow) 0 18px, var(--ink) 18px 36px);
+  }
+
+  /* Contact */
+  .contact-card{
+    background:#fff; border:1px solid var(--line); border-radius:12px; padding:36px;
+    display:grid; grid-template-columns:1fr 1fr; gap:32px;
+  }
+  .contact-item{margin-bottom:16px;}
+  .contact-item .k{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--safety-orange); display:block; margin-bottom:4px;}
+  .contact-item .v{font-size:16px; font-weight:500;}
+
+  /* Footer */
+  footer{background:var(--ink); color:#c7cbd1; padding:56px 24px 32px;}
+  .footer-inner{max-width:1120px; margin:0 auto;}
+  .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; padding-bottom:32px; border-bottom:1px solid #3a4149;}
+  .footer-brand{display:flex; align-items:center; gap:10px;}
+  .footer-brand img{width:32px; height:32px; border-radius:7px;}
+  .footer-brand span{font-family:var(--display); font-weight:600; font-size:18px; color:#fff;}
+  .footer-cols{display:flex; gap:56px; flex-wrap:wrap;}
+  .footer-col h5{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#8a93a0; margin:0 0 12px;}
+  .footer-col a{display:block; color:#c7cbd1; text-decoration:none; font-size:14px; margin-bottom:8px;}
+  .footer-col a:hover{color:var(--placard-yellow);}
+  .footer-social{display:flex; gap:12px; margin-top:6px;}
+  .footer-social a{
+    width:34px; height:34px; border-radius:50%; border:1px solid #565f6b;
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+  }
+  .footer-social a:hover{border-color:var(--placard-yellow); color:var(--placard-yellow);}
+  .footer-bottom{padding-top:24px; font-size:13px; color:#8a93a0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .footer-disclaimer{font-size:12.5px; color:#8a93a0; max-width:820px; margin-top:18px; line-height:1.6;}
+
+  @media (max-width:860px){
+    .promo-bar-inner{justify-content:center; text-align:center;}
+    .promo-bar-text{width:100%; text-align:center;}
+    .promo-bar-right{width:100%; justify-content:center;}
+    .hero-inner{grid-template-columns:1fr;}
+    .placard-stage{height:220px;}
+    .grid-3{grid-template-columns:1fr;}
+    .sample-wrap{grid-template-columns:1fr;}
+    .course-strip{grid-template-columns:1fr; text-align:center;}
+    .course-strip img{margin:0 auto;}
+    .contact-card{grid-template-columns:1fr;}
+    h1{font-size:38px;}
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW5433HK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div id="stickyTop">
+<div class="promo-bar" id="promoBar">
+  <div class="promo-bar-inner">
+    <span class="promo-bar-text">
+      <strong>📱 Get 2 FREE scans</strong> when you download Placard Pro — plus 5 more free scans for every friend who signs up.
+    </span>
+    <div class="promo-bar-right">
+      <a href="https://placard-pro.com/" target="_blank" rel="noopener" class="promo-bar-cta">Download the App →</a>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6977b804735c6f762a46d431/355f2d6e3_ChatGPTImageFeb1202608_21_03PM.png" alt="PlacardPro logo">
+      <span class="brand-name">PlacardPro</span>
+    </a>
+    <div class="nav-menu">
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navDropdown">
+        <span>Menu</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="nav-dropdown" id="navDropdown">
+        <a href="#features">Features</a>
+        <a href="#why">Why Placard Pro</a>
+        <a href="#how-it-works">How It Works</a>
+
+        <span class="nav-dropdown-label">Training</span>
+        <a href="https://www.youtube.com/@PlacardPro" target="_blank" rel="noopener">▶ YouTube Channel</a>
+
+        <span class="nav-dropdown-label">Blogs &amp; Updates</span>
+        <a href="https://www.facebook.com/profile.php?id=61591755513171" target="_blank" rel="noopener">Facebook</a>
+        <a href="PASTE_INSTAGRAM_URL_HERE" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://x.com/PlacardPro" target="_blank" rel="noopener">X (Twitter)</a>
+
+        <div class="nav-dropdown-divider"></div>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#contact">Contact</a>
+        <a class="cta-small" href="#" id="open-app-link">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+
+<section class="hero" id="top">
+  <div class="photo-wall" id="photo-wall" aria-hidden="true"></div>
+  <div class="wall-overlay"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="coming-soon-badge">🚚 Launching Soon</div>
+      <div class="eyebrow">49 CFR PLACARD DETERMINATION</div>
+      <h1>Scan the load.<br>Get the <span>right placards.</span></h1>
+      <p class="sub">PlacardPro reads bills of lading and freight manifests, applies DOT hazmat placarding rules automatically, and tells drivers and dispatchers exactly which placards a load requires — before it leaves the dock.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#" id="open-app-link-2">Coming Soon — placard-pro.com</a>
+        <a class="btn btn-ghost" href="#how-it-works">See how scanning works</a>
+      </div>
+    </div>
+    <div class="placard-stage">
+      <div class="placard-photo main">
+        <img src="https://media.base44.com/images/public/6977b804735c6f762a46d431/640d1de8a_20260530_174716.jpg" alt="Organic Peroxide Class 5.2 DOT placard, UN 3109, mounted on a trailer">
+      </div>
+      <div class="placard-photo corr">
+        <img src="https://media.base44.com/images/public/6977b804735c6f762a46d431/6a2cbf6c0_20260615_075137.jpg" alt="DANGEROUS DOT placard mounted on a trailer">
+      </div>
+      <div class="placard-photo dang">
+        <img src="https://media.base44.com/images/public/6977b804735c6f762a46d431/53f5318a1_20260615_075314.jpg" alt="Non-Flammable Gas Class 2 DOT placard mounted on a trailer">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="scatter-layer" id="scatter-features"></div>
+  <div class="scatter-overlay paper"></div>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">What it does</div>
+      <h2>Built for the freight dock, not a regulations textbook</h2>
+      <p>Placard Pro is designed to help docks manage multiple bills of lading at once. When you're running a lot of loads, it's easy for details to get lost in the shuffle — Placard Pro can analyze dozens of BOLs in about a minute, saving you time and costly errors. Drivers save time too, with the same fast, accurate results in the field.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card">
+        <span class="num">01</span>
+        <h3>Manifest &amp; BOL scanning</h3>
+        <p>Upload a photo of the freight manifest and its bills of lading. PlacardPro extracts UN numbers, hazard classes, packing groups, and gross weights automatically.</p>
+      </div>
+      <div class="feature-card">
+        <span class="num">02</span>
+        <h3>Automatic placard determination</h3>
+        <p>Aggregate weight thresholds, Table 1 materials, subsidiary hazards, and mixed-load rules are all applied in code — not left to guesswork on the dock.</p>
+      </div>
+      <div class="feature-card">
+        <span class="num">03</span>
+        <h3>Compatibility &amp; segregation warnings</h3>
+        <p>Flags materials that shouldn't travel together, with segregation distances and spill guidance surfaced before the truck is loaded.</p>
+      </div>
+      <div class="feature-card">
+        <span class="num">04</span>
+        <h3>UN number lookup</h3>
+        <p>A free, no-signup UN number search for quick reference to proper shipping names and hazard classes in the field.</p>
+      </div>
+      <div class="feature-card">
+        <span class="num">05</span>
+        <h3>Role-based workflow</h3>
+        <p>Drivers, dispatchers, and safety managers each get a scanning flow suited to how they actually work a load.</p>
+      </div>
+      <div class="feature-card">
+        <span class="num">06</span>
+        <h3>Hazmat placarding course</h3>
+        <p>A 9-chapter certification course with a 30-question exam, built around real-world scenarios and current 49 CFR requirements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-hazard"></div>
+
+<section id="why" style="background:var(--paper-dim);">
+  <div class="scatter-layer" id="scatter-why"></div>
+  <div class="scatter-overlay dim"></div>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Why Use Placard Pro</div>
+      <h2>One scan pays for itself many times over</h2>
+      <p>Placarding mistakes cost more than a fine — they cost a stopped shipment. Here's what accurate, automatic placard determination actually protects.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card">
+        <h3>Avoid costly DOT violations</h3>
+        <p>A single placarding mistake can mean thousands in fines or a stopped shipment. Placard Pro applies 49 CFR §172.504 placard rules automatically so the right placards are flagged every time.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Save time at the dock</h3>
+        <p>No more flipping through the ERG or guessing at hazard tables. Upload your manifest and BOLs — get required placards, segregation rules, and emergency guidance in seconds.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Catch bulk &amp; mixed-load mistakes</h3>
+        <p>Bulk shipments (IBC totes, tanks) and mixed loads have special placard rules that are easy to miss. The scanner flags bulk items individually and applies the DANGEROUS substitution rule correctly.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Accurate weight thresholds</h3>
+        <p>Table 2 materials only need placards above 1,001 lbs. Placard Pro sums gross weight per hazard class and tells you exactly which placards trigger — and why, with CFR references.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Live emergency response data</h3>
+        <p>Every flagged hazmat item pulls real ERG 2024 guidance — firefighting media, spill isolation distances, PPE, and first aid — so you're ready before you roll, not after an incident.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Protect your CSA score &amp; wallet</h3>
+        <p>Correct placarding keeps your truck moving, protects your carrier CSA score, and avoids out-of-service orders that cost a day of revenue.</p>
+      </div>
+    </div>
+
+    <a class="watch-video-btn" href="PASTE_ERG_VIDEO_URL_HERE" target="_blank" rel="noopener">
+      <span class="watch-video-btn-icon">▶</span>
+      <span>
+        <strong>Watch: Emergency Response Data in Action</strong>
+        <small>45 sec &middot; opens in a new tab</small>
+      </span>
+    </a>
+  </div>
+</section>
+
+<div class="divider-hazard"></div>
+
+<section id="how-it-works" style="background:var(--paper-dim);">
+  <div class="scatter-layer" id="scatter-how"></div>
+  <div class="scatter-overlay dim"></div>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Step by step</div>
+      <h2>How to use Placard Pro</h2>
+    </div>
+<a class="watch-video-btn" href="PASTE_DEMO_VIDEO_URL_HERE" target="_blank" rel="noopener">
+      <span class="watch-video-btn-icon">▶</span>
+      <span>
+        <strong>Watch: How Placard Pro Works</strong>
+        <small>30 sec &middot; opens in a new tab</small>
+      </span>
+    </a>
+
+        <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Upload your manifest</h3>
+          <p>Start by uploading a clear photo of the manifest or tally sheet. The scanner reads it in the background to figure out how many BOLs contain hazmat — so you only upload the ones that matter.</p>
+          <p class="step-tip">💡 Take a photo with your phone (JPG/PNG). PDFs cannot be scanned — use a photo instead.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Upload the hazmat BOLs</h3>
+          <p>Once the manifest is read, upload only the hazmat bills of lading it flagged. Each BOL is analyzed as its own item with its own UN number, weight, and packaging.</p>
+          <p class="step-tip">💡 Make sure weight, UN number, and hazard class are legible in the photo — these drive the placard result.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Run the analysis</h3>
+          <p>Press Analyze. Placard Pro reads every BOL, extracts the hazmat data verbatim, applies 49 CFR placard rules, checks bulk/mixed-load logic, and flags any missing fields on the documents.</p>
+          <p class="step-tip">💡 You'll see live status messages while it works. Results appear automatically when done.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Review required placards</h3>
+          <p>The report shows exactly which placards to display, the CFR rule behind each one, total weight per class, and whether DANGEROUS may substitute for individual class placards on a mixed load.</p>
+          <p class="step-tip">💡 Bulk items show their UN number placard separately. Compatibility warnings flag materials that must be segregated.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>Check emergency guidance</h3>
+          <p>Tap any hazmat item to pull live ERG 2024 data — firefighting media, spill isolation distances, protective action zones, PPE, and first aid. Share or save the report for your records.</p>
+          <p class="step-tip">💡 Emergency contact numbers from your BOL are surfaced too, including CHEMTREC (1-800-424-9300).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div>
+          <h3>Dispute, rescan, or save</h3>
+          <p>If a placard looks wrong, dispute it with a photo and reason — you get a free rescan credit and your fleet admin reviews it. Otherwise, save the analysis to your history for an audit trail.</p>
+          <p class="step-tip">💡 Every scan is stored to your Hazmat History so you can pull it up anytime.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:48px;"></div>
+
+    <div class="sample-wrap">
+      <div>
+        <h3>Example determination</h3>
+        <p>Two hazmat BOLs — a Class 6.1 poison and a Class 8 corrosive — trigger individual placards plus a DANGEROUS placard option for the mixed load, per 49 CFR §172.504(b).</p>
+        <div class="sample-tags">
+          <span>UN 2810 · Class 6.1</span>
+          <span>UN 1760 · Class 8</span>
+          <span>172.504(c) Table 2</span>
+        </div>
+      </div>
+      <div class="mock-diamonds">
+        <img class="mock-placard-img" alt="POISON Class 6 DOT placard" src="poison-placard.jpg">
+        <img class="mock-placard-img" alt="CORROSIVE Class 8 DOT placard" src="corrosive-placard.jpg">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="scatter-layer" id="scatter-course"></div>
+  <div class="scatter-overlay paper"></div>
+  <div class="section-inner">
+    <div class="course-strip">
+      <img src="https://media.base44.com/images/public/6977b804735c6f762a46d431/41f58162a_Hazmatplacardingtrainingmanual__endoftext__.png" alt="Hazmat Placarding Training Course manual">
+      <div>
+        <h3>Placard Pro: Hazmat Placarding Training Course</h3>
+        <p>9 chapters, a 30-question certification exam, and real-world scenarios based on 49 CFR — plus a DOT quick reference guide.</p>
+      </div>
+      <a class="btn btn-primary" href="#" id="course-link">View Course →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-hazard"></div>
+
+<!-- ============ PRIVACY POLICY ============ -->
+<section id="privacy">
+  <div class="scatter-layer" id="scatter-privacy"></div>
+  <div class="scatter-overlay paper"></div>
+  <div class="section-inner legal-block">
+    <div class="eyebrow">Privacy Policy</div>
+    <h2>How PlacardPro handles your data</h2>
+    <p>Last updated: July 5, 2026</p>
+
+    <h4>Who we are</h4>
+    <p>Novak Property Solutions LLC operates PlacardPro (the "App"), a tool that helps freight and logistics teams determine DOT hazmat placard requirements from uploaded freight documents.</p>
+
+    <h4>Information we collect</h4>
+    <ul>
+      <li><strong>Account information:</strong> first name, email address, and selected role (driver, dispatcher, safety manager) provided when you start using the App.</li>
+      <li><strong>Uploaded documents:</strong> photos of manifests and bills of lading you upload for scanning. These may contain shipper names, addresses, contact details, and shipment contents.</li>
+      <li><strong>Usage data:</strong> scan history, credit balance, and referral activity associated with your account.</li>
+      <li><strong>Sign-in data:</strong> if you sign in with a third-party account (such as Google), we receive the basic profile information that provider shares with us (typically name and email).</li>
+    </ul>
+
+    <h4>How we use it</h4>
+    <ul>
+      <li>To extract hazmat data from your documents and determine required placards.</li>
+      <li>To maintain your scan history, credit balance, and account preferences.</li>
+      <li>To operate the referral program and prevent misuse of scan credits.</li>
+      <li>To contact you about your account or scan results.</li>
+    </ul>
+
+    <h4>Third-party processing</h4>
+    <p>Uploaded documents are processed using a third-party AI document-analysis service to extract text and hazmat data. We do not sell uploaded documents or account information to third parties.</p>
+
+    <h4>Data retention</h4>
+    <p>We retain scan results and account data for as long as your account is active, or as needed to provide the service. You can request deletion of your account and associated data at any time using the contact details below.</p>
+
+    <h4>Your choices</h4>
+    <p>You may request access to, correction of, or deletion of your personal information by contacting us. If you signed in via a third-party provider, you can also revoke PlacardPro's access from that provider's account settings.</p>
+
+    <h4>Contact</h4>
+    <p>Questions about this policy can be sent to info@placardpro.com.</p>
+  </div>
+</section>
+
+<!-- ============ TERMS OF SERVICE ============ -->
+<section id="terms" style="background:var(--paper-dim);">
+  <div class="scatter-layer" id="scatter-terms"></div>
+  <div class="scatter-overlay dim"></div>
+  <div class="section-inner legal-block">
+    <div class="eyebrow">Terms of Service</div>
+    <h2>Terms of use</h2>
+    <p>Last updated: July 5, 2026</p>
+    <p>PlacardPro is operated by Novak Property Solutions LLC ("the Company").</p>
+
+    <h4>Acceptance of terms</h4>
+    <p>By creating an account or using PlacardPro, you agree to these terms. If you do not agree, do not use the App.</p>
+
+    <h4>The service</h4>
+    <p>PlacardPro assists with DOT hazmat placard determination and emergency awareness based on documents you upload. Scan credits are consumed per load analysis, and additional credits may be purchased through the App.</p>
+
+    <h4>Your responsibilities</h4>
+    <ul>
+      <li>You are responsible for the accuracy and legibility of documents you upload.</li>
+      <li>You must independently verify all hazardous materials compliance with official DOT regulations before shipment.</li>
+      <li>You will not use the App for any unlawful purpose or to process documents you are not authorized to access.</li>
+    </ul>
+
+    <h4>No guarantee of regulatory compliance</h4>
+    <p>This tool assists with placard determination and emergency awareness. Users must verify all hazardous material compliance with official DOT regulations. PlacardPro.com (operated by Novak Property Solutions LLC) does not guarantee regulatory compliance. Always consult 49 CFR and qualified hazmat personnel for final determination.</p>
+    <p>This material is for training purposes only and is based on current DOT regulations. It is not an official publication of the U.S. Department of Transportation.</p>
+
+    <h4>Payments</h4>
+    <p>Scan credits and subscription plans are billed as described at time of purchase. <span class="fill-me">[REFUND POLICY DETAILS]</span>.</p>
+
+    <h4>Limitation of liability</h4>
+    <p>To the maximum extent permitted by law, Novak Property Solutions LLC is not liable for any indirect, incidental, or consequential damages arising from use of the App, including reliance on placard determinations.</p>
+
+    <h4>Changes to these terms</h4>
+    <p>We may update these terms from time to time. Continued use of the App after changes take effect constitutes acceptance of the revised terms.</p>
+
+    <h4>Contact</h4>
+    <p>Questions about these terms can be sent to info@placardpro.com.</p>
+  </div>
+</section>
+
+<div class="divider-hazard"></div>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="scatter-layer" id="scatter-contact"></div>
+  <div class="scatter-overlay paper"></div>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Contact PlacardPro</h2>
+      <p>For support, billing, or compliance questions.</p>
+    </div>
+    <div class="contact-card">
+      <div>
+        <div class="contact-item">
+          <span class="k">Business name</span>
+          <span class="v">Novak Property Solutions LLC</span>
+        </div>
+        <div class="contact-item">
+          <span class="k">Support email</span>
+          <span class="v">info@placardpro.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="k">Phone</span>
+          <span class="v">(817) 313-3825</span>
+        </div>
+      </div>
+      <div>
+        <div class="contact-item">
+          <span class="k">Follow us</span><br>
+          <div class="footer-social" style="margin-top:8px;">
+            <a href="https://www.facebook.com/profile.php?id=61591755513171" target="_blank" rel="noopener" title="Facebook" id="social-facebook">FB</a>
+            <a href="PASTE_INSTAGRAM_URL_HERE" target="_blank" rel="noopener" title="Instagram" id="social-instagram">IG</a>
+            <a href="https://x.com/PlacardPro" target="_blank" rel="noopener" title="X / Twitter" id="social-x">X</a>
+            <a href="PASTE_LINKEDIN_URL_HERE" target="_blank" rel="noopener" title="LinkedIn" id="social-linkedin">in</a>
+          </div>
+          <span class="fill-note">Instagram &amp; LinkedIn links still needed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-inner">
+    <a href="https://americanheritagebooks.com/" target="_blank" rel="noopener" style="display:block; border-radius:16px; overflow:hidden; box-shadow:0 24px 48px rgba(0,0,0,0.25);">
+      <img src="american-heritage-books-banner.jpg" alt="American Heritage Books .com — a collection of American history and true story titles" style="width:100%; display:block;">
+    </a>
+  </div>
+</section>
+
+<footer style="position:relative; overflow:hidden;">
+  <div class="scatter-layer" id="scatter-footer"></div>
+  <div class="scatter-overlay ink"></div>
+  <div class="footer-inner" style="position:relative; z-index:2;">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6977b804735c6f762a46d431/355f2d6e3_ChatGPTImageFeb1202608_21_03PM.png" alt="PlacardPro logo">
+        <span>PlacardPro</span>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Product</h5>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#" id="open-app-link-3">Coming Soon</a>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#terms">Terms of Service</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h5>Follow</h5>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/profile.php?id=61591755513171" target="_blank" rel="noopener" title="Facebook" id="social-facebook-2">FB</a>
+            <a href="PASTE_INSTAGRAM_URL_HERE" target="_blank" rel="noopener" title="Instagram" id="social-instagram-2">IG</a>
+            <a href="https://x.com/PlacardPro" target="_blank" rel="noopener" title="X / Twitter" id="social-x-2">X</a>
+            <a href="PASTE_LINKEDIN_URL_HERE" target="_blank" rel="noopener" title="LinkedIn" id="social-linkedin-2">in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Novak Property Solutions LLC. All rights reserved.</span>
+      <span>DOT Compliance Scanner</span>
+    </div>
+    <p class="footer-disclaimer">This tool assists with placard determination and emergency awareness. Users must verify all hazardous material compliance with official DOT regulations. PlacardPro does not guarantee regulatory compliance. Always consult 49 CFR and qualified hazmat personnel for final determination. This material is for training purposes only and is based on current DOT regulations. It is not an official publication of the U.S. Department of Transportation.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Hide any not-yet-filled-in links (PASTE_..._HERE placeholders) ----------
+  // so the site launches clean today and these appear automatically once you
+  // replace the placeholder text with a real URL.
+  (function hideUnfilledLinks(){
+    document.querySelectorAll('a[href^="PASTE_"]').forEach(function(a){
+      a.style.display = 'none';
+    });
+    document.querySelectorAll('.nav-dropdown-label').forEach(function(label){
+      var el = label.nextElementSibling;
+      var hasVisibleLink = false;
+      while (el && !el.classList.contains('nav-dropdown-label') && !el.classList.contains('nav-dropdown-divider')) {
+        if (el.tagName === 'A' && el.style.display !== 'none') hasVisibleLink = true;
+        el = el.nextElementSibling;
+      }
+      if (!hasVisibleLink) label.style.display = 'none';
+    });
+  })();
+
+  // ---------- Nav dropdown menu ----------
+  (function navDropdown(){
+    var toggle = document.getElementById('menuToggle');
+    var dropdown = document.getElementById('navDropdown');
+    if (!toggle || !dropdown) return;
+
+    function closeMenu(){
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function toggleMenu(e){
+      e.stopPropagation();
+      var isOpen = dropdown.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    toggle.addEventListener('click', toggleMenu);
+    document.addEventListener('click', function(e){
+      if (!dropdown.contains(e.target) && e.target !== toggle) closeMenu();
+    });
+    dropdown.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+  })();
+
+  // ---------- Hero photo-wall ----------
+  var PLACARD_IMAGES = [
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/771588836_1000042671.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/835351205_1000040902.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/66c0fb0c8_1000042043.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/d17690621_1000042046.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/591c82772_1000042054.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/f38d1659c_1000034833.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/640d1de8a_20260530_174716.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/5b9743c56_20260601_123902.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/cac909cd2_20260611_134252.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/6a2cbf6c0_20260615_075137.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/53f5318a1_20260615_075314.jpg',
+    'https://media.base44.com/images/public/6977b804735c6f762a46d431/41f58162a_Hazmatplacardingtrainingmanual__endoftext__.png',
+  ];
+
+  var PLACARD_ITEMS = Array.from({ length: 42 }, function (_, i) {
+    return { id: i, src: PLACARD_IMAGES[i % PLACARD_IMAGES.length] };
+  });
+
+  (function buildPhotoWall(){
+    var wall = document.getElementById('photo-wall');
+    if (!wall) return;
+
+    var COLS = 6;
+    var perCol = Math.ceil(PLACARD_ITEMS.length / COLS);
+    var durations = [42, 55, 38, 60, 46, 50]; // seconds — varied so columns don't sync
+
+    for (var c = 0; c < COLS; c++) {
+      var col = document.createElement('div');
+      col.className = 'wall-col' + (c % 2 === 1 ? ' reverse' : '');
+      col.style.animationDuration = durations[c % durations.length] + 's';
+
+      var items = [];
+      for (var i = 0; i < perCol; i++) {
+        items.push(PLACARD_ITEMS[(c * perCol + i) % PLACARD_ITEMS.length]);
+      }
+      // duplicate the column's images so the translateY(-50%) loop is seamless
+      var doubled = items.concat(items);
+
+      doubled.forEach(function (item) {
+        var img = document.createElement('img');
+        img.src = item.src;
+        img.loading = 'lazy';
+        img.alt = '';
+        col.appendChild(img);
+      });
+
+      wall.appendChild(col);
+    }
+  })();
+
+  // Scatter full-color placard photos behind other sections, non-animated
+  (function scatterSections(){
+    var targets = [
+      { id: 'scatter-features', count: 13 },
+      { id: 'scatter-why',      count: 15 },
+      { id: 'scatter-how',      count: 15 },
+      { id: 'scatter-course',   count: 8 },
+      { id: 'scatter-privacy',  count: 12 },
+      { id: 'scatter-terms',    count: 12 },
+      { id: 'scatter-contact',  count: 10 },
+      { id: 'scatter-footer',   count: 13 }
+    ];
+
+    targets.forEach(function (t) {
+      var el = document.getElementById(t.id);
+      if (!el) return;
+
+      // Lay images out on a jittered grid so they spread evenly instead of
+      // clustering — pick a column count that roughly matches the item count,
+      // then place one image per cell with randomized offset/size/rotation.
+      var cols = Math.ceil(Math.sqrt(t.count * 1.6));
+      var rows = Math.ceil(t.count / cols);
+      var cellW = 100 / cols;
+      var cellH = 100 / rows;
+
+      for (var i = 0; i < t.count; i++) {
+        var col = i % cols;
+        var row = Math.floor(i / cols);
+
+        var img = document.createElement('img');
+        img.src = PLACARD_IMAGES[(i * 5 + t.id.length) % PLACARD_IMAGES.length];
+        img.loading = 'lazy';
+        img.alt = '';
+
+        var size = 130 + Math.round(Math.random() * 110);      // 130–240px
+        var jitterX = (Math.random() * 0.5 - 0.25) * cellW;     // +/- quarter cell
+        var jitterY = (Math.random() * 0.5 - 0.25) * cellH;
+        var top = Math.max(0, Math.min(92, row * cellH + jitterY));
+        var left = Math.max(0, Math.min(94, col * cellW + jitterX));
+        var rotate = Math.round(Math.random() * 34 - 17);      // -17–17deg
+
+        img.style.width = size + 'px';
+        img.style.height = size + 'px';
+        img.style.top = top + '%';
+        img.style.left = left + '%';
+        img.style.transform = 'rotate(' + rotate + 'deg)';
+
+        el.appendChild(img);
+      }
+    });
+  })();
+
+  // Central place to point every "Open the App" / "View Course" CTA at your real app URL.
+  var APP_URL = "https://placard-pro.com/";
+  var COURSE_URL = "https://placard-pro.com/HazmatCourse"; // adjust if the course route differs
+  ["open-app-link","open-app-link-2","open-app-link-3"].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.setAttribute("href", APP_URL);
+  });
+  var courseEl = document.getElementById("course-link");
+  if (courseEl) courseEl.setAttribute("href", COURSE_URL);
+</script>
+
+</body>
+</html>
 
 
 
