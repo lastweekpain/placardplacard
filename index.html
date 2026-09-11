@@ -276,6 +276,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .step h3{font-family:var(--display); font-size:20px; margin:0 0 8px; font-weight:600;}
   .step p{color:var(--steel); margin:0; max-width:600px;}
+  .step-content{
+    display:flex; gap:28px; align-items:flex-start; justify-content:space-between;
+  }
+  .step-text{flex:1; min-width:0;}
+  .step-shot{
+    flex-shrink:0; width:150px; display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .step-shot img{
+    width:100%; border-radius:12px; border:4px solid var(--ink);
+    box-shadow:0 16px 32px rgba(0,0,0,0.22);
+  }
+  .step-shot-note{
+    font-family:var(--mono); font-size:10.5px; color:var(--steel); text-align:center;
+  }
+  @media (max-width:860px){
+    .step-content{flex-direction:column; align-items:center; text-align:center;}
+    .step-shot{width:180px;}
+  }
   .demo-video-wrap{
     max-width:320px; margin:0 auto 40px; border-radius:14px; overflow:hidden;
     box-shadow:0 24px 48px rgba(0,0,0,0.25); border:1px solid var(--line);
@@ -298,26 +316,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .watch-video-btn strong{display:block; font-family:var(--display); font-size:15px; font-weight:600;}
   .watch-video-btn small{display:block; color:#b8c0cc; font-size:12.5px; margin-top:2px;}
-  .app-gallery{
-    display:flex; flex-wrap:wrap; justify-content:center;
-    gap:24px;
-    margin:0 auto 44px;
-  }
-  .app-gallery-item{
-    margin:0; display:flex; flex-direction:column; align-items:center; gap:10px;
-    width:200px;
-  }
-  .app-gallery-item img{
-    width:100%; border-radius:16px; border:5px solid var(--ink);
-    box-shadow:0 20px 40px rgba(0,0,0,0.25);
-  }
-  .app-gallery-item figcaption{
-    font-family:var(--mono); font-size:12px; color:var(--steel);
-    text-align:center;
-  }
-  @media (max-width:860px){
-    .app-gallery-item{width:220px;}
-  }
   .step-tip{
     margin-top:10px !important;
     font-size:13.5px !important;
@@ -620,13 +618,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Correct placarding keeps your truck moving, protects your carrier CSA score, and avoids out-of-service orders that cost a day of revenue.</p>
       </div>
     </div>
-
-    <div class="demo-video-wrap">
-      <video controls playsinline preload="none" poster="app-screenshot-no-placard.jpg">
-        <source src="placardpro-emergency-response.mp4" type="video/mp4">
-        Your browser does not support embedded video.
-      </video>
-    </div>
   </div>
 </section>
 
@@ -647,48 +638,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </video>
     </div>
 
-    <div class="app-gallery">
-      <figure class="app-gallery-item">
-        <img src="app-screenshot-hero.jpg" alt="PlacardPro app home screen with free UN number search">
-        <figcaption>Start a scan or look up a UN number</figcaption>
-      </figure>
-      <figure class="app-gallery-item">
-        <img src="app-screenshot-scanned.jpg" alt="PlacardPro screen confirming manifest and BOLs scanned successfully">
-        <figcaption>Manifest &amp; BOLs scanned successfully</figcaption>
-      </figure>
-      <figure class="app-gallery-item">
-        <img src="app-screenshot-details.jpg" alt="PlacardPro hazmat item detail card with gross weight, container type, and missing BOL fields flagged">
-        <figcaption>Full hazmat item breakdown</figcaption>
-      </figure>
-      <figure class="app-gallery-item">
-        <img src="app-screenshot-no-placard.jpg" alt="PlacardPro screen showing a hazmat item that doesn't require a placard, with full emergency contact and shipper certification info still provided">
-        <figcaption>Emergency info for every hazmat item — even ones with no placard required</figcaption>
-      </figure>
-      <figure class="app-gallery-item">
-        <img src="app-screenshot-results.jpg" alt="PlacardPro UN number search results showing ERG guide, shipping name, and hazard class">
-        <figcaption>Instant ERG hazard data</figcaption>
-      </figure>
-      <figure class="app-gallery-item">
-        <img src="app-screenshot-emergency.jpg" alt="PlacardPro emergency response screen with firefighting, spill, and evacuation guidance">
-        <figcaption>Full emergency response guidance</figcaption>
-      </figure>
-    </div>
-
         <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <div>
-          <h3>Upload your manifest</h3>
-          <p>Start by uploading a clear photo of the manifest or tally sheet. The scanner reads it in the background to figure out how many BOLs contain hazmat — so you only upload the ones that matter.</p>
-          <p class="step-tip">💡 Take a photo with your phone (JPG/PNG). PDFs cannot be scanned — use a photo instead.</p>
+        <div class="step-content">
+          <div class="step-text">
+            <h3>Upload your manifest</h3>
+            <p>Start by uploading a clear photo of the manifest or tally sheet. The scanner reads it in the background to figure out how many BOLs contain hazmat — so you only upload the ones that matter.</p>
+            <p class="step-tip">💡 Take a photo with your phone (JPG/PNG). PDFs cannot be scanned — use a photo instead.</p>
+          </div>
+          <div class="step-shot">
+            <img src="app-screenshot-hero.jpg" alt="PlacardPro app screen for starting a scan">
+          </div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div>
-          <h3>Upload the hazmat BOLs</h3>
-          <p>Once the manifest is read, upload only the hazmat bills of lading it flagged. Each BOL is analyzed as its own item with its own UN number, weight, and packaging.</p>
-          <p class="step-tip">💡 Make sure weight, UN number, and hazard class are legible in the photo — these drive the placard result.</p>
+        <div class="step-content">
+          <div class="step-text">
+            <h3>Upload the hazmat BOLs</h3>
+            <p>Once the manifest is read, upload only the hazmat bills of lading it flagged. Each BOL is analyzed as its own item with its own UN number, weight, and packaging.</p>
+            <p class="step-tip">💡 Make sure weight, UN number, and hazard class are legible in the photo — these drive the placard result.</p>
+          </div>
+          <div class="step-shot">
+            <img src="app-screenshot-scanned.jpg" alt="PlacardPro screen confirming the manifest and BOLs were scanned successfully">
+            <span class="step-shot-note">Document thumbnails blurred for this example</span>
+          </div>
         </div>
       </div>
       <div class="step">
@@ -701,18 +676,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <div>
-          <h3>Review required placards</h3>
-          <p>The report shows exactly which placards to display, the CFR rule behind each one, total weight per class, and whether DANGEROUS may substitute for individual class placards on a mixed load.</p>
-          <p class="step-tip">💡 Bulk items show their UN number placard separately. Compatibility warnings flag materials that must be segregated.</p>
+        <div class="step-content">
+          <div class="step-text">
+            <h3>Review required placards</h3>
+            <p>The report shows exactly which placards to display, the CFR rule behind each one, total weight per class, and whether DANGEROUS may substitute for individual class placards on a mixed load.</p>
+            <p class="step-tip">💡 Bulk items show their UN number placard separately. Compatibility warnings flag materials that must be segregated.</p>
+          </div>
+          <div class="step-shot">
+            <img src="app-screenshot-details.jpg" alt="PlacardPro hazmat item detail card with gross weight, container type, and BOL fields">
+          </div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <div>
-          <h3>Check emergency guidance</h3>
-          <p>Tap any hazmat item to pull live ERG 2024 data — firefighting media, spill isolation distances, protective action zones, PPE, and first aid. Share or save the report for your records.</p>
-          <p class="step-tip">💡 Emergency contact numbers from your BOL are surfaced too, including CHEMTREC (1-800-424-9300).</p>
+        <div class="step-content">
+          <div class="step-text">
+            <h3>Check emergency guidance</h3>
+            <p>Tap any hazmat item to pull live ERG 2024 data — firefighting media, spill isolation distances, protective action zones, PPE, and first aid. Share or save the report for your records.</p>
+            <p class="step-tip">💡 Emergency contact numbers from your BOL are surfaced too, including CHEMTREC (1-800-424-9300).</p>
+          </div>
+          <div class="step-shot">
+            <img src="app-screenshot-emergency.jpg" alt="PlacardPro emergency response screen with firefighting, spill, and evacuation guidance">
+          </div>
         </div>
       </div>
       <div class="step">
